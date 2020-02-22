@@ -9,7 +9,7 @@
 #import "MeViewController.h"
 #import "AppDelegate.h"
 #import "Masonry.h"
-@interface MeViewController ()
+@interface MeViewController ()<UINavigationControllerDelegate,UIImagePickerControllerDelegate>
 {
     UIImageView *image;
     UILabel *lost;
@@ -43,6 +43,14 @@
     CGFloat sidelength = 0.4 * self.view.frame.size.width;
     image = [[UIImageView alloc]initWithFrame:(CGRect)CGRectMake(x, y, sidelength, sidelength)];
     image.image = [UIImage imageNamed:@"loading.png"];
+    image.layer.cornerRadius = image.frame.size.width/2;
+    image.layer.masksToBounds = YES;
+    image.layer.borderWidth = 1.5f;
+    image.layer.borderColor = UIColor.grayColor.CGColor;
+    //enable image-change
+    image.userInteractionEnabled = YES;
+    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(alterChangeImage:)];
+    [image addGestureRecognizer:singleTap];
     [self.view addSubview:image];
     //set quit;
     x = 0.05 * self.view.frame.size.width;
@@ -71,6 +79,24 @@
     [self setInfo];
     
 }
+- (void)alterChangeImage:(UITapGestureRecognizer *)gesture{
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    [alert addAction:[UIAlertAction actionWithTitle:@"Select from album" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        UIImagePickerController *PickerImage = [[UIImagePickerController alloc]init];
+        PickerImage.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        PickerImage.allowsEditing = YES;
+        PickerImage.delegate = self;
+        [self presentViewController:PickerImage animated:YES completion:nil];
+    }]];
+    [alert addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<UIImagePickerControllerInfoKey,id> *)info{
+    image.image = [info objectForKey:@"UIImagePickerControllerEditedImage"];
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 - (void)doQuit{
     AppDelegate *app = (AppDelegate *)[[UIApplication sharedApplication]delegate];
     app.user = nil;
