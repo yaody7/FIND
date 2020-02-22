@@ -10,6 +10,7 @@
 		1811E9D523FCD214009BBD22 /* MeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1811E9D423FCD214009BBD22 /* MeViewController.m */; };
 		1811E9D823FCDBDF009BBD22 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 1811E9D723FCDBDF009BBD22 /* User.m */; };
 		1811E9DB23FCDE2E009BBD22 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1811E9DA23FCDE2E009BBD22 /* LoginViewController.m */; };
+		182DBF9D23FFAEA300570DEB /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 182DBF9C23FFAEA300570DEB /* RegisterViewController.m */; };
 		18A12B7923FB7FED0094B6FA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A12B7823FB7FED0094B6FA /* AppDelegate.m */; };
 		18A12B7C23FB7FED0094B6FA /* FoundViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A12B7B23FB7FED0094B6FA /* FoundViewController.m */; };
 		18A12B7F23FB7FED0094B6FA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18A12B7D23FB7FED0094B6FA /* Main.storyboard */; };
@@ -22,6 +23,7 @@
 		18A12BB123FBBA0A0094B6FA /* InfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A12BB023FBBA0A0094B6FA /* InfoTableViewCell.m */; };
 		18A12BB323FBCCCC0094B6FA /* loading.png in Resources */ = {isa = PBXBuildFile; fileRef = 18A12BB223FBCCCC0094B6FA /* loading.png */; };
 		18A12BB623FBD0E30094B6FA /* LostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A12BB523FBD0E30094B6FA /* LostViewController.m */; };
+		FCB29D29C18C27C37FEA9F8D /* libPods-FIND.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FF8B6F546403CA7B9DEAE96 /* libPods-FIND.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +50,8 @@
 		1811E9D723FCDBDF009BBD22 /* User.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		1811E9D923FCDE2E009BBD22 /* LoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		1811E9DA23FCDE2E009BBD22 /* LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		182DBF9B23FFAEA300570DEB /* RegisterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
+		182DBF9C23FFAEA300570DEB /* RegisterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
 		18A12B7423FB7FED0094B6FA /* FIND.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FIND.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		18A12B7723FB7FED0094B6FA /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		18A12B7823FB7FED0094B6FA /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -71,6 +75,9 @@
 		18A12BB223FBCCCC0094B6FA /* loading.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = loading.png; sourceTree = "<group>"; };
 		18A12BB423FBD0E30094B6FA /* LostViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LostViewController.h; sourceTree = "<group>"; };
 		18A12BB523FBD0E30094B6FA /* LostViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LostViewController.m; sourceTree = "<group>"; };
+		746B2C0B37166BED837516F5 /* Pods-FIND.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FIND.debug.xcconfig"; path = "Target Support Files/Pods-FIND/Pods-FIND.debug.xcconfig"; sourceTree = "<group>"; };
+		9FF8B6F546403CA7B9DEAE96 /* libPods-FIND.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FIND.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E5DF325931BDD49A2B67FCD4 /* Pods-FIND.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FIND.release.xcconfig"; path = "Target Support Files/Pods-FIND/Pods-FIND.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +85,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FCB29D29C18C27C37FEA9F8D /* libPods-FIND.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -98,6 +106,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0E275EE07540AADA49FE1D52 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				746B2C0B37166BED837516F5 /* Pods-FIND.debug.xcconfig */,
+				E5DF325931BDD49A2B67FCD4 /* Pods-FIND.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		18A12B6B23FB7FED0094B6FA = {
 			isa = PBXGroup;
 			children = (
@@ -106,6 +124,8 @@
 				18A12B8F23FB7FEF0094B6FA /* FINDTests */,
 				18A12B9A23FB7FEF0094B6FA /* FINDUITests */,
 				18A12B7523FB7FED0094B6FA /* Products */,
+				0E275EE07540AADA49FE1D52 /* Pods */,
+				4233D8901F04051C5F1D371C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -126,6 +146,8 @@
 				18A12B7823FB7FED0094B6FA /* AppDelegate.m */,
 				1811E9D923FCDE2E009BBD22 /* LoginViewController.h */,
 				1811E9DA23FCDE2E009BBD22 /* LoginViewController.m */,
+				182DBF9B23FFAEA300570DEB /* RegisterViewController.h */,
+				182DBF9C23FFAEA300570DEB /* RegisterViewController.m */,
 				1811E9D623FCDBDF009BBD22 /* User.h */,
 				1811E9D723FCDBDF009BBD22 /* User.m */,
 				1811E9D323FCD214009BBD22 /* MeViewController.h */,
@@ -165,6 +187,14 @@
 			path = FINDUITests;
 			sourceTree = "<group>";
 		};
+		4233D8901F04051C5F1D371C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9FF8B6F546403CA7B9DEAE96 /* libPods-FIND.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -172,6 +202,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 18A12BA023FB7FEF0094B6FA /* Build configuration list for PBXNativeTarget "FIND" */;
 			buildPhases = (
+				9205B753312CF223B46E20BC /* [CP] Check Pods Manifest.lock */,
 				18A12B7023FB7FED0094B6FA /* Sources */,
 				18A12B7123FB7FED0094B6FA /* Frameworks */,
 				18A12B7223FB7FED0094B6FA /* Resources */,
@@ -291,6 +322,31 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		9205B753312CF223B46E20BC /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-FIND-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		18A12B7023FB7FED0094B6FA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -301,6 +357,7 @@
 				18A12B8723FB7FEF0094B6FA /* main.m in Sources */,
 				1811E9D523FCD214009BBD22 /* MeViewController.m in Sources */,
 				18A12BAB23FB82D00094B6FA /* InfoViewModel.m in Sources */,
+				182DBF9D23FFAEA300570DEB /* RegisterViewController.m in Sources */,
 				1811E9DB23FCDE2E009BBD22 /* LoginViewController.m in Sources */,
 				18A12B7923FB7FED0094B6FA /* AppDelegate.m in Sources */,
 				18A12BB623FBD0E30094B6FA /* LostViewController.m in Sources */,
@@ -473,6 +530,7 @@
 		};
 		18A12BA123FB7FEF0094B6FA /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 746B2C0B37166BED837516F5 /* Pods-FIND.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -489,6 +547,7 @@
 		};
 		18A12BA223FB7FEF0094B6FA /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E5DF325931BDD49A2B67FCD4 /* Pods-FIND.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

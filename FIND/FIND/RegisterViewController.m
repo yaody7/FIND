@@ -1,25 +1,23 @@
 //
-//  LoginViewController.m
+//  RegisterViewController.m
 //  FIND
 //
-//  Created by ydy on 2020/2/19.
+//  Created by ydy on 2020/2/21.
 //  Copyright © 2020 ydy. All rights reserved.
 //
 
-#import "LoginViewController.h"
-#import "AppDelegate.h"
-#import "User.h"
 #import "RegisterViewController.h"
-@interface LoginViewController ()
+#import "AppDelegate.h"
+@interface RegisterViewController ()
 {
     UITextField *username;
     UITextField *password;
-    UIButton *login;
-    UIButton *regi;
+    UITextField *contact;
+    UIButton *Register;
 }
 @end
 
-@implementation LoginViewController
+@implementation RegisterViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -35,46 +33,34 @@
     y = 0.3 * self.view.frame.size.height;
     password = [[UITextField alloc]initWithFrame:(CGRect)CGRectMake(x, y, width, height)];
     password.placeholder = @"Password";
-    [password setSecureTextEntry:YES];
     [self.view addSubview:password];
+    //set contact
+    y = 0.4 * self.view.frame.size.height;
+    contact = [[UITextField alloc]initWithFrame:(CGRect)CGRectMake(x, y, width, height)];
+    contact.placeholder = @"Telephone Number";
+    [self.view addSubview:contact];
     //set login
     x = 0.05 * self.view.frame.size.width;
-    y = 0.45 * self.view.frame.size.height;
-    width = 0.43 * self.view.frame.size.width;
+    y = 0.55 * self.view.frame.size.height;
+    width = 0.9 * self.view.frame.size.width;
     height = 0.06 * self.view.frame.size.height;
-    login = [[UIButton alloc]initWithFrame:(CGRect)CGRectMake(x, y, width, height)];
-    [login setTitle:@"Login" forState:UIControlStateNormal];
-    login.backgroundColor = UIColor.greenColor;
-    [login addTarget:self action:@selector(doLogin) forControlEvents:UIControlEventTouchUpInside];
-    [login.layer setCornerRadius:12];
-    login.titleLabel.font = [UIFont systemFontOfSize: 20.0];
-    [self.view addSubview:login];
-    //set register
-    x = 0.52 * self.view.frame.size.width;
-    y = 0.45 * self.view.frame.size.height;
-    width = 0.43 * self.view.frame.size.width;
-    height = 0.06 * self.view.frame.size.height;
-    regi = [[UIButton alloc]initWithFrame:(CGRect)CGRectMake(x, y, width, height)];
-    [regi setTitle:@"Register" forState:UIControlStateNormal];
-    [regi setTitleColor:[UIColor greenColor]forState:UIControlStateNormal];
-    regi.backgroundColor = UIColor.whiteColor;
-    [regi.layer setBorderColor:UIColor.greenColor.CGColor];
-    [regi.layer setBorderWidth:1];
-    [regi addTarget:self action:@selector(jumpRegister) forControlEvents:UIControlEventTouchUpInside];
-    [regi.layer setCornerRadius:12];
-    regi.titleLabel.font = [UIFont systemFontOfSize: 20.0];
-    [self.view addSubview:regi];
-    self.title = @"Login";
+    Register = [[UIButton alloc]initWithFrame:(CGRect)CGRectMake(x, y, width, height)];
+    [Register setTitle:@"Register" forState:UIControlStateNormal];
+    Register.backgroundColor = UIColor.greenColor;
+    [Register addTarget:self action:@selector(doRegister) forControlEvents:UIControlEventTouchUpInside];
+    [Register.layer setCornerRadius:12];
+    Register.titleLabel.font = [UIFont systemFontOfSize:20];
+    [self.view addSubview:Register];
+    self.title = @"Register";
 }
 //TODO set the APP's user
-- (void)doLogin{
-    //get the User
+- (void)doRegister{
     NSURLSessionConfiguration *defaultConfigObject = [NSURLSessionConfiguration defaultSessionConfiguration];
     NSURLSession *defaultSession = [NSURLSession sessionWithConfiguration:defaultConfigObject delegate:self delegateQueue:[NSOperationQueue mainQueue]];
-    NSURL *url = [NSURL URLWithString:@"http://192.168.1.103:8001/api/login"];
+    NSURL *url = [NSURL URLWithString:@"http://192.168.1.103:8001/api/register"];
     NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:url];
     [urlRequest setHTTPMethod:@"POST"];
-    NSDictionary *dic = @{@"username": username.text, @"password": password.text};
+    NSDictionary *dic = @{@"username": username.text, @"password": password.text, @"contact": contact.text};
     
     NSError * error = nil;
     NSData * jsonData = [NSJSONSerialization dataWithJSONObject:dic options:NSJSONWritingPrettyPrinted error:&error];
@@ -82,10 +68,11 @@
     [urlRequest setHTTPBody:[jsonString dataUsingEncoding:NSUTF8StringEncoding]];
     NSURLSessionTask *dataTask = [defaultSession dataTaskWithRequest:urlRequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if(error == nil) {
-     //      NSString * text = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
+            //      NSString * text = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
             NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
             if([dict[@"status"] isEqualToString:@"success"]){
                 //set User
+                [self.navigationController popViewControllerAnimated:NO];
                 AppDelegate *app = (AppDelegate *)[[UIApplication sharedApplication]delegate];
                 User *tmp = [[User alloc]init];
                 tmp.contact = dict[@"contact"];
@@ -97,19 +84,16 @@
                 app.user = tmp;
             }
             if([dict[@"status"] isEqualToString:@"fail"]){
-                UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"FAIL" message:@"Wrong username or password" preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"FAIL" message:@"Duplicate username or telephone number" preferredStyle:UIAlertControllerStyleAlert];
                 UIAlertAction *comfirmAc = [UIAlertAction actionWithTitle:@"Confirm" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 }];
                 [alertVC addAction:comfirmAc];
                 [self presentViewController:alertVC animated:YES completion:nil];
-
+                
             }
         }
     }];
     [dataTask resume];
 }
-- (void)jumpRegister{
-    RegisterViewController *rec = [[RegisterViewController alloc]init];
-    [self.navigationController pushViewController:rec animated:YES];
-}
+
 @end
