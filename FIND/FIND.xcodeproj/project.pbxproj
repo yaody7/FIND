@@ -112,7 +112,6 @@
 				746B2C0B37166BED837516F5 /* Pods-FIND.debug.xcconfig */,
 				E5DF325931BDD49A2B67FCD4 /* Pods-FIND.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};

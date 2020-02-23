@@ -9,7 +9,7 @@
 #import "MeViewController.h"
 #import "AppDelegate.h"
 #import "Masonry.h"
-@interface MeViewController ()<UINavigationControllerDelegate,UIImagePickerControllerDelegate>
+@interface MeViewController ()<UINavigationControllerDelegate,UIImagePickerControllerDelegate,NSURLSessionDelegate>
 {
     UIImageView *image;
     UILabel *lost;
@@ -42,7 +42,7 @@
     CGFloat y = 0.2 * self.view.frame.size.height;
     CGFloat sidelength = 0.4 * self.view.frame.size.width;
     image = [[UIImageView alloc]initWithFrame:(CGRect)CGRectMake(x, y, sidelength, sidelength)];
-    image.image = [UIImage imageNamed:@"loading.png"];
+    [self getImage];
     image.layer.cornerRadius = image.frame.size.width/2;
     image.layer.masksToBounds = YES;
     image.layer.borderWidth = 1.5f;
@@ -79,6 +79,40 @@
     [self setInfo];
     
 }
+- (void)getImage{
+    NSLog(@"user %@",currentUser);
+    NSLog(@"url %@",currentUser.portraitURL);
+    if (currentUser == nil || currentUser.portraitURL == nil || [currentUser.portraitURL isEqualToString: @""])
+        image.image = [UIImage imageNamed:@"loading.png"];
+    else{
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+        NSString *cachePath = [paths objectAtIndex:0];
+        NSFileManager *fileManager = [NSFileManager defaultManager];
+        NSString *filePath = [cachePath stringByAppendingPathComponent:@"portrait.png"];
+        if ([fileManager fileExistsAtPath:filePath]){
+            NSData *data = [NSData dataWithContentsOfFile:filePath];
+            image.image = [UIImage imageWithData:data];
+        }else{
+            image.image = [UIImage imageNamed:@"loading.png"];
+            NSOperationQueue *queue = [[NSOperationQueue alloc]init];
+            NSURLSessionConfiguration *defaultConfigObject = [NSURLSessionConfiguration defaultSessionConfiguration];
+            NSURLSession *delegateFreeSession = [NSURLSession sessionWithConfiguration: defaultConfigObject
+                                                                                 delegate: self
+                                                                            delegateQueue: queue];
+            NSURL *url = [NSURL URLWithString:currentUser.portraitURL];
+            NSURLRequest *request = [NSURLRequest requestWithURL:url];
+            NSURLSessionDataTask *dataTask = [delegateFreeSession dataTaskWithRequest:request completionHandler:^(NSData * data, NSURLResponse * response, NSError * error) {
+                dispatch_sync(dispatch_get_main_queue(), ^{
+                                    self->image.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
+                                    [UIImagePNGRepresentation(self->image.image) writeToFile:filePath atomically:YES];
+                });
+            }];
+            
+            [dataTask resume];
+        }
+    }
+}
+
 - (void)alterChangeImage:(UITapGestureRecognizer *)gesture{
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     [alert addAction:[UIAlertAction actionWithTitle:@"Select from album" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -94,6 +128,35 @@
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<UIImagePickerControllerInfoKey,id> *)info{
     image.image = [info objectForKey:@"UIImagePickerControllerEditedImage"];
+    NSURLSessionConfiguration *defaultConfigObject = [NSURLSessionConfiguration defaultSessionConfiguration];
+    NSURLSession *defaultSession = [NSURLSession sessionWithConfiguration:defaultConfigObject delegate:self delegateQueue:[NSOperationQueue mainQueue]];
+    NSURL *url = [NSURL URLWithString:@"http://192.168.1.102:8001/api/setPortrait"];
+    NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:url];
+    [urlRequest setHTTPMethod:@"POST"];
+    
+    //TODO getImageURL
+    currentUser.portraitURL = @"https://hbimg.huabanimg.com/d8784bbeac692c01b36c0d4ff0e072027bb3209b106138-hwjOwX_fw658";
+    NSDictionary *dic = @{@"username": currentUser.name, @"portrait": @"https://hbimg.huabanimg.com/d8784bbeac692c01b36c0d4ff0e072027bb3209b106138-hwjOwX_fw658"};
+    
+    NSError * error = nil;
+    NSData * jsonData = [NSJSONSerialization dataWithJSONObject:dic options:NSJSONWritingPrettyPrinted error:&error];
+    NSString * jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    [urlRequest setHTTPBody:[jsonString dataUsingEncoding:NSUTF8StringEncoding]];
+    NSURLSessionTask *dataTask = [defaultSession dataTaskWithRequest:urlRequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        if(error == nil) {
+     //      NSString * text = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
+            NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+            if([dict[@"status"] isEqualToString:@"success"]){
+                //TODO
+                NSLog(@"Change Portrait success");
+            }
+            if([dict[@"status"] isEqualToString:@"fail"]){
+                //TODO
+                NSLog(@"Change Portrait fail");
+            }
+        }
+    }];
+    [dataTask resume];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -219,6 +282,8 @@
 {
     AppDelegate *app = (AppDelegate *)[[UIApplication sharedApplication]delegate];
     currentUser = app.user;
+    if (currentUser == nil)
+        return;
     NSLog(@"ME OBSERVE %@",currentUser.name);
     name.text = currentUser.name;
     l.text = currentUser.lost;
@@ -226,5 +291,6 @@
     s.text = currentUser.succeed;
     r.text = currentUser.reward;
     c.text = currentUser.contact;
+    [self getImage];
 }
 @end

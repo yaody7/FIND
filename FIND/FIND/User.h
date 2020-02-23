@@ -7,16 +7,20 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface User : NSObject
-@property (nonatomic, strong)NSString *lost;
-@property (nonatomic, strong)NSString *found;
-@property (nonatomic, strong)NSString *succeed;
-@property (nonatomic, strong)NSString *name;
-@property (nonatomic, strong)NSString *contact;
-@property (nonatomic, strong)NSString *reward;
+@property (nonatomic, copy)NSString *lost;
+@property (nonatomic, copy)NSString *found;
+@property (nonatomic, copy)NSString *succeed;
+@property (nonatomic, copy)NSString *name;
+@property (nonatomic, copy)NSString *contact;
+@property (nonatomic, copy)NSString *reward;
+@property (nonatomic, copy)NSString *portraitURL;
+
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -57,7 +57,7 @@
 - (void)doRegister{
     NSURLSessionConfiguration *defaultConfigObject = [NSURLSessionConfiguration defaultSessionConfiguration];
     NSURLSession *defaultSession = [NSURLSession sessionWithConfiguration:defaultConfigObject delegate:self delegateQueue:[NSOperationQueue mainQueue]];
-    NSURL *url = [NSURL URLWithString:@"http://192.168.1.103:8001/api/register"];
+    NSURL *url = [NSURL URLWithString:@"http://192.168.1.102:8001/api/register"];
     NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:url];
     [urlRequest setHTTPMethod:@"POST"];
     NSDictionary *dic = @{@"username": username.text, @"password": password.text, @"contact": contact.text};
