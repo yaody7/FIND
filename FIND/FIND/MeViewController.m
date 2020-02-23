@@ -80,15 +80,13 @@
     
 }
 - (void)getImage{
-    NSLog(@"user %@",currentUser);
-    NSLog(@"url %@",currentUser.portraitURL);
     if (currentUser == nil || currentUser.portraitURL == nil || [currentUser.portraitURL isEqualToString: @""])
         image.image = [UIImage imageNamed:@"loading.png"];
     else{
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
         NSString *cachePath = [paths objectAtIndex:0];
         NSFileManager *fileManager = [NSFileManager defaultManager];
-        NSString *filePath = [cachePath stringByAppendingPathComponent:@"portrait.png"];
+        NSString *filePath = [cachePath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@_portrait",currentUser.name]];
         if ([fileManager fileExistsAtPath:filePath]){
             NSData *data = [NSData dataWithContentsOfFile:filePath];
             image.image = [UIImage imageWithData:data];
