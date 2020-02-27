@@ -11,6 +11,7 @@
 		1811E9D823FCDBDF009BBD22 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 1811E9D723FCDBDF009BBD22 /* User.m */; };
 		1811E9DB23FCDE2E009BBD22 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1811E9DA23FCDE2E009BBD22 /* LoginViewController.m */; };
 		182DBF9D23FFAEA300570DEB /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 182DBF9C23FFAEA300570DEB /* RegisterViewController.m */; };
+		1881472224076E8E007C784A /* QCloud.m in Sources */ = {isa = PBXBuildFile; fileRef = 1881472124076E8E007C784A /* QCloud.m */; };
 		18A12B7923FB7FED0094B6FA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A12B7823FB7FED0094B6FA /* AppDelegate.m */; };
 		18A12B7C23FB7FED0094B6FA /* FoundViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A12B7B23FB7FED0094B6FA /* FoundViewController.m */; };
 		18A12B7F23FB7FED0094B6FA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18A12B7D23FB7FED0094B6FA /* Main.storyboard */; };
@@ -52,6 +53,8 @@
 		1811E9DA23FCDE2E009BBD22 /* LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		182DBF9B23FFAEA300570DEB /* RegisterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
 		182DBF9C23FFAEA300570DEB /* RegisterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
+		1881472024076E8E007C784A /* QCloud.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QCloud.h; sourceTree = "<group>"; };
+		1881472124076E8E007C784A /* QCloud.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QCloud.m; sourceTree = "<group>"; };
 		18A12B7423FB7FED0094B6FA /* FIND.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FIND.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		18A12B7723FB7FED0094B6FA /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		18A12B7823FB7FED0094B6FA /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -164,6 +167,8 @@
 				18A12B8223FB7FEF0094B6FA /* LaunchScreen.storyboard */,
 				18A12B8523FB7FEF0094B6FA /* Info.plist */,
 				18A12B8623FB7FEF0094B6FA /* main.m */,
+				1881472024076E8E007C784A /* QCloud.h */,
+				1881472124076E8E007C784A /* QCloud.m */,
 			);
 			path = FIND;
 			sourceTree = "<group>";
@@ -355,6 +360,7 @@
 				18A12B7C23FB7FED0094B6FA /* FoundViewController.m in Sources */,
 				18A12B8723FB7FEF0094B6FA /* main.m in Sources */,
 				1811E9D523FCD214009BBD22 /* MeViewController.m in Sources */,
+				1881472224076E8E007C784A /* QCloud.m in Sources */,
 				18A12BAB23FB82D00094B6FA /* InfoViewModel.m in Sources */,
 				182DBF9D23FFAEA300570DEB /* RegisterViewController.m in Sources */,
 				1811E9DB23FCDE2E009BBD22 /* LoginViewController.m in Sources */,
@@ -538,6 +544,26 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"Masonry\"",
+					"-l\"QCloudCOSXML\"",
+					"-l\"QCloudCore\"",
+					"-l\"c++\"",
+					"-l\"z\"",
+					"-framework",
+					"\"Accelerate\"",
+					"-framework",
+					"\"CoreMedia\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"UIKit\"",
+					"-all_load",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = SDCS.FIND;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -554,6 +580,26 @@
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"Masonry\"",
+					"-l\"QCloudCOSXML\"",
+					"-l\"QCloudCore\"",
+					"-l\"c++\"",
+					"-l\"z\"",
+					"-framework",
+					"\"Accelerate\"",
+					"-framework",
+					"\"CoreMedia\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"UIKit\"",
+					"-all_load",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = SDCS.FIND;
 				PRODUCT_NAME = "$(TARGET_NAME)";

@@ -11,6 +11,7 @@
 #import "LostViewController.h"
 #import "MeViewController.h"
 #import "LoginViewController.h"
+#import "QCloud.h"
 @interface AppDelegate ()
 {
     UITabBarController *tabc;   //Main view

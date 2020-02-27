@@ -9,6 +9,7 @@
 #import "MeViewController.h"
 #import "AppDelegate.h"
 #import "Masonry.h"
+#import "QCloud.h"
 @interface MeViewController ()<UINavigationControllerDelegate,UIImagePickerControllerDelegate,NSURLSessionDelegate>
 {
     UIImageView *image;
@@ -101,11 +102,11 @@
             NSURLRequest *request = [NSURLRequest requestWithURL:url];
             NSURLSessionDataTask *dataTask = [delegateFreeSession dataTaskWithRequest:request completionHandler:^(NSData * data, NSURLResponse * response, NSError * error) {
                 dispatch_sync(dispatch_get_main_queue(), ^{
-                                    self->image.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
-                                    [UIImagePNGRepresentation(self->image.image) writeToFile:filePath atomically:YES];
+                    NSLog(@"%@",[UIImage imageWithData:[NSData dataWithContentsOfURL:url]]);
+                    self->image.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
+                    [UIImagePNGRepresentation(self->image.image) writeToFile:filePath atomically:YES];
                 });
             }];
-            
             [dataTask resume];
         }
     }
@@ -126,16 +127,20 @@
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<UIImagePickerControllerInfoKey,id> *)info{
     image.image = [info objectForKey:@"UIImagePickerControllerEditedImage"];
+    QCloud *cloud = [[QCloud alloc]init];
+    [cloud uploadImage:image.image named:currentUser.name];
+    NSString *imageURL = [cloud getURL:currentUser.name];
+    if ([imageURL isEqualToString:@""] || imageURL == nil){
+        NSLog(@"Error!");
+        return;
+    }
     NSURLSessionConfiguration *defaultConfigObject = [NSURLSessionConfiguration defaultSessionConfiguration];
     NSURLSession *defaultSession = [NSURLSession sessionWithConfiguration:defaultConfigObject delegate:self delegateQueue:[NSOperationQueue mainQueue]];
-    NSURL *url = [NSURL URLWithString:@"http://192.168.1.102:8001/api/setPortrait"];
+    NSURL *url = [NSURL URLWithString:@"http://192.168.1.104:8001/api/setPortrait"];
     NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:url];
     [urlRequest setHTTPMethod:@"POST"];
-    
-    //TODO getImageURL
-    currentUser.portraitURL = @"https://hbimg.huabanimg.com/d8784bbeac692c01b36c0d4ff0e072027bb3209b106138-hwjOwX_fw658";
-    NSDictionary *dic = @{@"username": currentUser.name, @"portrait": @"https://hbimg.huabanimg.com/d8784bbeac692c01b36c0d4ff0e072027bb3209b106138-hwjOwX_fw658"};
-    
+    currentUser.portraitURL = imageURL;
+    NSDictionary *dic = @{@"username": currentUser.name, @"portrait": imageURL};
     NSError * error = nil;
     NSData * jsonData = [NSJSONSerialization dataWithJSONObject:dic options:NSJSONWritingPrettyPrinted error:&error];
     NSString * jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
@@ -146,6 +151,14 @@
             NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
             if([dict[@"status"] isEqualToString:@"success"]){
                 //TODO
+                NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+                NSString *cachePath = [paths objectAtIndex:0];
+                NSFileManager *fileManager = [NSFileManager defaultManager];
+                NSString *filePath = [cachePath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@_portrait",self->currentUser.name]];
+                if ([fileManager fileExistsAtPath:filePath]){
+                    [fileManager removeItemAtPath:filePath error:nil];
+                }
+                [UIImagePNGRepresentation(self->image.image) writeToFile:filePath atomically:YES];
                 NSLog(@"Change Portrait success");
             }
             if([dict[@"status"] isEqualToString:@"fail"]){

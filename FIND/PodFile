@@ -1,4 +1,5 @@
 # podfile
 target 'FIND' do
 	pod 'Masonry'
+	pod 'QCloudCOSXML/Transfer'
 end

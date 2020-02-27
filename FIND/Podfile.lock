@@ -1,16 +1,24 @@
 PODS:
   - Masonry (1.1.0)
+  - QCloudCore/WithoutMTA (5.7.1)
+  - QCloudCOSXML/Transfer (5.7.1):
+    - QCloudCore/WithoutMTA
 
 DEPENDENCIES:
   - Masonry
+  - QCloudCOSXML/Transfer
 
 SPEC REPOS:
   trunk:
     - Masonry
+    - QCloudCore
+    - QCloudCOSXML
 
 SPEC CHECKSUMS:
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
+  QCloudCore: bcea9653ea15dc6ade056fb506a0747aa151db22
+  QCloudCOSXML: 788031930816474d8eff6cb73906a5a2a2e392ce
 
-PODFILE CHECKSUM: cc54e1e9cab9c89f5869a4693f67f9c5ca0638ac
+PODFILE CHECKSUM: 168f9f764cc4622dd26c64c83d26f2c6b93f13a7
 
 COCOAPODS: 1.8.4

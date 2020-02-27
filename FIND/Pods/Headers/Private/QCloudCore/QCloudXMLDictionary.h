@@ -1,0 +1,1 @@
+../../../QCloudCore/QCloudCore/Classes/Base/QCLOUDRestNet/CoreRequest/Serializer/XML/XMLDictionary/Reader/QCloudXMLDictionary.h
