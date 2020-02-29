@@ -7,11 +7,11 @@
 //
 
 #import "AppDelegate.h"
-#import "FoundViewController.h"
-#import "LostViewController.h"
+#import "InfoViewController.h"
 #import "MeViewController.h"
 #import "LoginViewController.h"
 #import "QCloud.h"
+#import "PostViewController.h"
 @interface AppDelegate ()
 {
     UITabBarController *tabc;   //Main view
@@ -26,11 +26,13 @@
     self.window = [[UIWindow alloc]initWithFrame:[[UIScreen mainScreen]bounds]];
     //tab[nav[found]]]
     tabc = [[UITabBarController alloc]init];
-    FoundViewController *foundc = [[FoundViewController alloc]init];
+    InfoViewController *foundc = [[InfoViewController alloc]init];
+    foundc.title = @"FOUND";
     UINavigationController *navc1 = [[UINavigationController alloc]initWithRootViewController:foundc];
     [tabc addChildViewController:navc1];
     //tab[nav[lost]]]
-    LostViewController *lostc = [[LostViewController alloc]init];
+    InfoViewController *lostc = [[InfoViewController alloc]init];
+    lostc.title = @"LOST";
     UINavigationController *navc2 = [[UINavigationController alloc]initWithRootViewController:lostc];
     [tabc addChildViewController:navc2];
     //add meVC
@@ -40,6 +42,10 @@
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     //set rootVC
+    self.window.rootViewController=[[PostViewController alloc]init];
+    return YES;
+    
+    
     if(self.user == nil){
         LoginViewController *loginc = [[LoginViewController alloc]init];
         log_re = [[UINavigationController alloc]initWithRootViewController:loginc];

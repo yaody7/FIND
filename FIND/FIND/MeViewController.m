@@ -33,8 +33,10 @@
 @implementation MeViewController
 
 - (void)viewDidLoad {
+    NSLog(@"load");
     AppDelegate *app = (AppDelegate *)[[UIApplication sharedApplication]delegate];
     currentUser = app.user;
+    NSLog(@"%@",currentUser);
     [app addObserver:self forKeyPath:@"user" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
     [super viewDidLoad];
     self.title = @"ME";
@@ -136,7 +138,7 @@
     }
     NSURLSessionConfiguration *defaultConfigObject = [NSURLSessionConfiguration defaultSessionConfiguration];
     NSURLSession *defaultSession = [NSURLSession sessionWithConfiguration:defaultConfigObject delegate:self delegateQueue:[NSOperationQueue mainQueue]];
-    NSURL *url = [NSURL URLWithString:@"http://192.168.1.104:8001/api/setPortrait"];
+    NSURL *url = [NSURL URLWithString:@"http://192.168.1.103:8001/api/setPortrait"];
     NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:url];
     [urlRequest setHTTPMethod:@"POST"];
     currentUser.portraitURL = imageURL;
