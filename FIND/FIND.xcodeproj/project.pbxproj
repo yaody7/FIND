@@ -12,6 +12,7 @@
 		1811E9D823FCDBDF009BBD22 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 1811E9D723FCDBDF009BBD22 /* User.m */; };
 		1811E9DB23FCDE2E009BBD22 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1811E9DA23FCDE2E009BBD22 /* LoginViewController.m */; };
 		1818FA6B240A1BE100485432 /* add.png in Resources */ = {isa = PBXBuildFile; fileRef = 1818FA6A240A1BE000485432 /* add.png */; };
+		18197669240B56D90092091F /* UITextViewWithPlaceholder.m in Sources */ = {isa = PBXBuildFile; fileRef = 18197668240B56D90092091F /* UITextViewWithPlaceholder.m */; };
 		182DBF9D23FFAEA300570DEB /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 182DBF9C23FFAEA300570DEB /* RegisterViewController.m */; };
 		1881472224076E8E007C784A /* QCloud.m in Sources */ = {isa = PBXBuildFile; fileRef = 1881472124076E8E007C784A /* QCloud.m */; };
 		18A12B7923FB7FED0094B6FA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A12B7823FB7FED0094B6FA /* AppDelegate.m */; };
@@ -57,6 +58,8 @@
 		1811E9D923FCDE2E009BBD22 /* LoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		1811E9DA23FCDE2E009BBD22 /* LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		1818FA6A240A1BE000485432 /* add.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = add.png; path = ../../add.png; sourceTree = "<group>"; };
+		18197667240B56D90092091F /* UITextViewWithPlaceholder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UITextViewWithPlaceholder.h; sourceTree = "<group>"; };
+		18197668240B56D90092091F /* UITextViewWithPlaceholder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UITextViewWithPlaceholder.m; sourceTree = "<group>"; };
 		182DBF9B23FFAEA300570DEB /* RegisterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
 		182DBF9C23FFAEA300570DEB /* RegisterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
 		1881472024076E8E007C784A /* QCloud.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QCloud.h; sourceTree = "<group>"; };
@@ -178,6 +181,8 @@
 				18A12B8623FB7FEF0094B6FA /* main.m */,
 				1881472024076E8E007C784A /* QCloud.h */,
 				1881472124076E8E007C784A /* QCloud.m */,
+				18197667240B56D90092091F /* UITextViewWithPlaceholder.h */,
+				18197668240B56D90092091F /* UITextViewWithPlaceholder.m */,
 			);
 			path = FIND;
 			sourceTree = "<group>";
@@ -375,6 +380,7 @@
 				1881472224076E8E007C784A /* QCloud.m in Sources */,
 				18A12BAB23FB82D00094B6FA /* InfoViewModel.m in Sources */,
 				182DBF9D23FFAEA300570DEB /* RegisterViewController.m in Sources */,
+				18197669240B56D90092091F /* UITextViewWithPlaceholder.m in Sources */,
 				1811E9DB23FCDE2E009BBD22 /* LoginViewController.m in Sources */,
 				180ECA68240A66A70008AD71 /* PostViewController.m in Sources */,
 				18A12B7923FB7FED0094B6FA /* AppDelegate.m in Sources */,

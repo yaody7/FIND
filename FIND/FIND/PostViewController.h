@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) UIView *thing;
 @property (strong, nonatomic) UIView *image;
 @property (strong, nonatomic) UIView *detail;
+@property (strong, nonatomic) UIButton *confirm;
 @end
 
 NS_ASSUME_NONNULL_END

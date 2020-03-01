@@ -42,10 +42,6 @@
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     //set rootVC
-    self.window.rootViewController=[[PostViewController alloc]init];
-    return YES;
-    
-    
     if(self.user == nil){
         LoginViewController *loginc = [[LoginViewController alloc]init];
         log_re = [[UINavigationController alloc]initWithRootViewController:loginc];

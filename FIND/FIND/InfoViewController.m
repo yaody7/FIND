@@ -8,6 +8,7 @@
 
 #import "InfoViewController.h"
 #import "InfoViewModel.h"
+#import "PostViewController.h"
 
 @interface InfoViewController ()
 {
@@ -50,7 +51,15 @@
     self.navigationItem.rightBarButtonItem = rightBarBtn;
 }
 - (void)post{
-    
+ //   [self presentViewController:[[PostViewController alloc]init] animated:YES completion:nil];
+    PostViewController *tmp = [[PostViewController alloc]init];
+    tmp.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:tmp animated:YES];
+}
+- (void)dealloc
+{
+    [table setDelegate:nil];
+    [table setDataSource:nil];
 }
 /*
 点击变色效果不好，待改进
