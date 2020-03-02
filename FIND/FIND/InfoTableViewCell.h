@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UILabel *contact;
 @property (nonatomic, strong) UILabel *time;
 @property (nonatomic, strong) UIImageView *image;
+
 - (void) setName:(NSString *)name setContact:(NSString*)contact setTime:(NSString*)time;
 @end
 

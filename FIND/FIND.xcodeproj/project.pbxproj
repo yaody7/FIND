@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		180ECA68240A66A70008AD71 /* PostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 180ECA67240A66A70008AD71 /* PostViewController.m */; };
+		180FFBDE240D45B40053460A /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 180FFBDD240D45B40053460A /* DetailViewController.m */; };
 		1811E9D523FCD214009BBD22 /* MeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1811E9D423FCD214009BBD22 /* MeViewController.m */; };
 		1811E9D823FCDBDF009BBD22 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 1811E9D723FCDBDF009BBD22 /* User.m */; };
 		1811E9DB23FCDE2E009BBD22 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1811E9DA23FCDE2E009BBD22 /* LoginViewController.m */; };
@@ -51,6 +52,8 @@
 /* Begin PBXFileReference section */
 		180ECA66240A66A70008AD71 /* PostViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PostViewController.h; sourceTree = "<group>"; };
 		180ECA67240A66A70008AD71 /* PostViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PostViewController.m; sourceTree = "<group>"; };
+		180FFBDC240D45B40053460A /* DetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
+		180FFBDD240D45B40053460A /* DetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
 		1811E9D323FCD214009BBD22 /* MeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeViewController.h; sourceTree = "<group>"; };
 		1811E9D423FCD214009BBD22 /* MeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MeViewController.m; sourceTree = "<group>"; };
 		1811E9D623FCDBDF009BBD22 /* User.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
@@ -174,6 +177,8 @@
 				180ECA67240A66A70008AD71 /* PostViewController.m */,
 				18A12BA923FB82D00094B6FA /* InfoViewModel.h */,
 				18A12BAA23FB82D00094B6FA /* InfoViewModel.m */,
+				180FFBDC240D45B40053460A /* DetailViewController.h */,
+				180FFBDD240D45B40053460A /* DetailViewController.m */,
 				18A12B7D23FB7FED0094B6FA /* Main.storyboard */,
 				18A12B8023FB7FEF0094B6FA /* Assets.xcassets */,
 				18A12B8223FB7FEF0094B6FA /* LaunchScreen.storyboard */,
@@ -382,6 +387,7 @@
 				182DBF9D23FFAEA300570DEB /* RegisterViewController.m in Sources */,
 				18197669240B56D90092091F /* UITextViewWithPlaceholder.m in Sources */,
 				1811E9DB23FCDE2E009BBD22 /* LoginViewController.m in Sources */,
+				180FFBDE240D45B40053460A /* DetailViewController.m in Sources */,
 				180ECA68240A66A70008AD71 /* PostViewController.m in Sources */,
 				18A12B7923FB7FED0094B6FA /* AppDelegate.m in Sources */,
 				18A12BB123FBBA0A0094B6FA /* InfoTableViewCell.m in Sources */,

@@ -9,8 +9,11 @@
 #define WIDTH 0.9 * self.view.frame.size.width
 #import "PostViewController.h"
 #import "UITextViewWithPlaceholder.h"
+#import "AppDelegate.h"
+#import "QCloud.h"
 
-@interface PostViewController ()<UINavigationControllerDelegate,UIImagePickerControllerDelegate>{
+@interface PostViewController ()<UINavigationControllerDelegate,UIImagePickerControllerDelegate,NSURLSessionDelegate>{
+    NSString *type;
     NSArray *radioButton; //0 for lose, 1 for find
     UIImage *toClick;
     UIImage *clicked;
@@ -156,8 +159,64 @@
     _confirm.titleLabel.font = [UIFont systemFontOfSize: 20.0 weight:UIFontWeightBold];
     return _confirm;
 }
+
 - (void)doConfirm{
     //TODO send urlsession
+    AppDelegate * app = (AppDelegate *)[[UIApplication sharedApplication]delegate];
+    NSURLSessionConfiguration *defaultConfigObject = [NSURLSessionConfiguration defaultSessionConfiguration];
+    NSURLSession *defaultSession = [NSURLSession sessionWithConfiguration:defaultConfigObject delegate:self delegateQueue:[NSOperationQueue mainQueue]];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@:8001/api/post",app.ServerIP]];
+    NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:url];
+    [urlRequest setHTTPMethod:@"POST"];
+    //Set body
+    NSString *name = app.user.name;
+    NSString *type = self->type;
+    NSString *thing = ((UITextViewWithPlaceholder *)[self->_thing.subviews objectAtIndex:1]).text;
+    QCloud *cloud = [[QCloud alloc]init];
+    NSInteger tmp = [app.user.found intValue] + [app.user.lost intValue];
+    NSString *imageName = [NSString stringWithFormat:@"%@%ld",name,tmp];
+    [cloud uploadImage:((UIButton *)[self->_image.subviews objectAtIndex:1]).imageView.image named:imageName];
+    /*
+    NSString *imageURL = [cloud getURL:imageName];
+    if ([imageURL isEqualToString:@""] || imageURL == nil){
+        NSLog(@"Error!");
+        return;
+    }
+     */
+    NSString *detail = ((UITextViewWithPlaceholder *)[self->_detail.subviews objectAtIndex:1]).text;
+    NSDateFormatter *f = [[NSDateFormatter alloc]init];
+    [f setDateFormat:@"YYYY-MM-dd"];
+    NSDate *now = [NSDate date];
+    NSString *time = [f stringFromDate:now];
+    NSString *portrait = app.user.portrait;
+    NSString *contact = app.user.contact;
+    NSDictionary *dic = @{@"username": name, @"type": type, @"thing": thing, @"picture": imageName, @"detail": detail, @"time": time, @"portrait": portrait, @"contact": contact};
+    NSError * error = nil;
+    NSData * jsonData = [NSJSONSerialization dataWithJSONObject:dic options:NSJSONWritingPrettyPrinted error:&error];
+    NSString * jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    [urlRequest setHTTPBody:[jsonString dataUsingEncoding:NSUTF8StringEncoding]];
+    NSURLSessionTask *dataTask = [defaultSession dataTaskWithRequest:urlRequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        if(error == nil) {
+     //      NSString * text = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
+            NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+            if([dict[@"status"] isEqualToString:@"success"]){
+                NSLog(@"Post Success");
+                if ([type isEqualToString:@"FOUND"]){
+                    NSInteger tmp = [app.user.found intValue];
+                    tmp++;
+                    app.user.found = [NSString stringWithFormat:@"%ld",tmp];
+                } else{
+                    NSInteger tmp = [app.user.lost intValue];
+                    tmp++;
+                    app.user.lost = [NSString stringWithFormat:@"%ld",tmp];
+                }
+            }
+            if([dict[@"status"] isEqualToString:@"fail"]){
+                NSLog(@"Post Fail");
+            }
+        }
+    }];
+    [dataTask resume];
     [self.navigationController popViewControllerAnimated:YES];
 }
 - (void)chooseImage{
@@ -165,6 +224,7 @@
     PickerImage.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     PickerImage.allowsEditing = YES;
     PickerImage.delegate = self;
+    PickerImage.modalPresentationStyle = UIModalPresentationFullScreen;
     [self presentViewController:PickerImage animated:YES completion:nil];
 }
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<UIImagePickerControllerInfoKey,id> *)info{
@@ -173,11 +233,13 @@
 }
 
 - (void)clickLose{
+    self->type = @"LOST";
     [((UIButton *)[self->radioButton objectAtIndex:0]) setImage:self->clicked forState:UIControlStateNormal];
     [((UIButton *)[self->radioButton objectAtIndex:1]) setImage:self->toClick forState:UIControlStateNormal];
 }
 
 - (void)clickFind{
+    self->type = @"FOUND";
     [((UIButton *)[self->radioButton objectAtIndex:1]) setImage:self->clicked forState:UIControlStateNormal];
     [((UIButton *)[self->radioButton objectAtIndex:0]) setImage:self->toClick forState:UIControlStateNormal];
 }

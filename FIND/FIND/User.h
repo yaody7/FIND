@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy)NSString *name;
 @property (nonatomic, copy)NSString *contact;
 @property (nonatomic, copy)NSString *reward;
-@property (nonatomic, copy)NSString *portraitURL;
+@property (nonatomic, copy)NSString *portrait;
 
 
 @end

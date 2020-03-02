@@ -38,6 +38,8 @@
     currentUser = app.user;
     NSLog(@"%@",currentUser);
     [app addObserver:self forKeyPath:@"user" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
+    [app addObserver:self forKeyPath:@"user.found" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
+    [app addObserver:self forKeyPath:@"user.lost" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
     [super viewDidLoad];
     self.title = @"ME";
     //set image
@@ -83,7 +85,7 @@
     
 }
 - (void)getImage{
-    if (currentUser == nil || currentUser.portraitURL == nil || [currentUser.portraitURL isEqualToString: @""])
+    if (currentUser == nil || currentUser.portrait == nil || [currentUser.portrait isEqualToString: @""])
         image.image = [UIImage imageNamed:@"loading.png"];
     else{
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
@@ -100,7 +102,9 @@
             NSURLSession *delegateFreeSession = [NSURLSession sessionWithConfiguration: defaultConfigObject
                                                                                  delegate: self
                                                                             delegateQueue: queue];
-            NSURL *url = [NSURL URLWithString:currentUser.portraitURL];
+            AppDelegate *app = (AppDelegate *)[[UIApplication sharedApplication]delegate];
+            NSString *imageURL = [NSString stringWithFormat:@"%@%@",app.QCloudIP,currentUser.portrait];
+            NSURL *url = [NSURL URLWithString:imageURL];
             NSURLRequest *request = [NSURLRequest requestWithURL:url];
             NSURLSessionDataTask *dataTask = [delegateFreeSession dataTaskWithRequest:request completionHandler:^(NSData * data, NSURLResponse * response, NSError * error) {
                 dispatch_sync(dispatch_get_main_queue(), ^{
@@ -121,28 +125,32 @@
         PickerImage.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
         PickerImage.allowsEditing = YES;
         PickerImage.delegate = self;
+        PickerImage.modalPresentationStyle = UIModalPresentationFullScreen;
         [self presentViewController:PickerImage animated:YES completion:nil];
     }]];
     [alert addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
+    alert.modalPresentationStyle = UIModalPresentationFullScreen;
     [self presentViewController:alert animated:YES completion:nil];
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<UIImagePickerControllerInfoKey,id> *)info{
     image.image = [info objectForKey:@"UIImagePickerControllerEditedImage"];
     QCloud *cloud = [[QCloud alloc]init];
-    [cloud uploadImage:image.image named:currentUser.name];
-    NSString *imageURL = [cloud getURL:currentUser.name];
+    NSString *imageName = [NSString stringWithFormat:@"%@_portrait",self->currentUser.name];
+    [cloud uploadImage:image.image named:imageName];
+ /*   NSString *imageURL = [cloud getURL:[NSString stringWithFormat:@"%@_portrait",self->currentUser.name]];
     if ([imageURL isEqualToString:@""] || imageURL == nil){
         NSLog(@"Error!");
         return;
-    }
+    }*/
     NSURLSessionConfiguration *defaultConfigObject = [NSURLSessionConfiguration defaultSessionConfiguration];
     NSURLSession *defaultSession = [NSURLSession sessionWithConfiguration:defaultConfigObject delegate:self delegateQueue:[NSOperationQueue mainQueue]];
-    NSURL *url = [NSURL URLWithString:@"http://192.168.1.102:8001/api/setPortrait"];
+    AppDelegate *app = (AppDelegate *)[[UIApplication sharedApplication]delegate];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@:8001/api/setPortrait",app.ServerIP]];
     NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:url];
     [urlRequest setHTTPMethod:@"POST"];
-    currentUser.portraitURL = imageURL;
-    NSDictionary *dic = @{@"username": currentUser.name, @"portrait": imageURL};
+    currentUser.portrait = [NSString stringWithFormat:@"%@_portrait",self->currentUser.name];
+    NSDictionary *dic = @{@"username": currentUser.name, @"portrait": imageName};
     NSError * error = nil;
     NSData * jsonData = [NSJSONSerialization dataWithJSONObject:dic options:NSJSONWritingPrettyPrinted error:&error];
     NSString * jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];

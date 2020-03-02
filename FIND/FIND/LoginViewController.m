@@ -71,7 +71,8 @@
     //get the User
     NSURLSessionConfiguration *defaultConfigObject = [NSURLSessionConfiguration defaultSessionConfiguration];
     NSURLSession *defaultSession = [NSURLSession sessionWithConfiguration:defaultConfigObject delegate:self delegateQueue:[NSOperationQueue mainQueue]];
-    NSURL *url = [NSURL URLWithString:@"http://192.168.1.102:8001/api/login"];
+    AppDelegate *app = (AppDelegate *)[[UIApplication sharedApplication]delegate];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@:8001/api/login",app.ServerIP]];
     NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:url];
     [urlRequest setHTTPMethod:@"POST"];
     NSDictionary *dic = @{@"username": username.text, @"password": password.text};
@@ -94,7 +95,7 @@
                 tmp.name = dict[@"name"];;
                 tmp.reward = dict[@"reward"];
                 tmp.succeed = dict[@"succeed"];
-                tmp.portraitURL = dict[@"portrait"];
+                tmp.portrait = dict[@"portrait"];
                 app.user = tmp;
             }
             if([dict[@"status"] isEqualToString:@"fail"]){

@@ -12,6 +12,7 @@
 #import "LoginViewController.h"
 #import "QCloud.h"
 #import "PostViewController.h"
+#import "DetailViewController.h"
 @interface AppDelegate ()
 {
     UITabBarController *tabc;   //Main view
@@ -23,16 +24,17 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    //set ServerIP
+    self.ServerIP = @"192.168.1.108";
+    self.QCloudIP = @"http://find-1301391093.cos.ap-guangzhou.myqcloud.com/";
     self.window = [[UIWindow alloc]initWithFrame:[[UIScreen mainScreen]bounds]];
     //tab[nav[found]]]
     tabc = [[UITabBarController alloc]init];
-    InfoViewController *foundc = [[InfoViewController alloc]init];
-    foundc.title = @"FOUND";
+    InfoViewController *foundc = [[InfoViewController alloc]initWithType:@"FOUND"];
     UINavigationController *navc1 = [[UINavigationController alloc]initWithRootViewController:foundc];
     [tabc addChildViewController:navc1];
     //tab[nav[lost]]]
-    InfoViewController *lostc = [[InfoViewController alloc]init];
-    lostc.title = @"LOST";
+    InfoViewController *lostc = [[InfoViewController alloc]initWithType:@"LOST"];
     UINavigationController *navc2 = [[UINavigationController alloc]initWithRootViewController:lostc];
     [tabc addChildViewController:navc2];
     //add meVC

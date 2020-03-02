@@ -10,6 +10,8 @@
 
 @interface InfoViewController : UIViewController
 
+@property (nonatomic, copy) NSString* type;
+- (instancetype)initWithType:(NSString *)type;
 
 @end
 

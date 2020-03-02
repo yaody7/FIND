@@ -29,8 +29,10 @@
     [self addSubview:self.time];
     //set image
     self.image = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"loading.png"]];
-    self.image = [[UIImageView alloc]initWithFrame:(CGRect)CGRectMake(0, 0, 80, 80)];
+    self.image = [[UIImageView alloc]initWithFrame:(CGRect)CGRectMake(10, 10, 60, 60)];
     self.image.image = [UIImage imageNamed:@"loading.png"];
+    self.image.layer.cornerRadius = 10;
+    self.image.clipsToBounds = YES;
     [self addSubview:self.image];
 }
 

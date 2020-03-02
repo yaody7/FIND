@@ -7,11 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "DetailViewController.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface InfoViewModel : NSObject <UITableViewDataSource, UITableViewDelegate>
 
+@property (strong, nonatomic) NSMutableArray *info;
+@property (copy, nonatomic) NSString *type;
+@property (strong, nonatomic) UITableView *table;
+@property (strong, nonatomic) DetailViewController *vc;
 @end
 
 NS_ASSUME_NONNULL_END

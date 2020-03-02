@@ -12,6 +12,8 @@
 
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) User *user;
+@property (strong, nonatomic) NSString *ServerIP;
+@property (strong, nonatomic) NSString *QCloudIP;
 
 @end
 
