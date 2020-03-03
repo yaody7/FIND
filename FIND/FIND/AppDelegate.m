@@ -25,7 +25,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     //set ServerIP
-    self.ServerIP = @"192.168.1.108";
+    self.ServerIP = @"192.168.43.63";
     self.QCloudIP = @"http://find-1301391093.cos.ap-guangzhou.myqcloud.com/";
     self.window = [[UIWindow alloc]initWithFrame:[[UIScreen mainScreen]bounds]];
     //tab[nav[found]]]

@@ -11,6 +11,7 @@
 @interface InfoViewController : UIViewController
 
 @property (nonatomic, copy) NSString* type;
+@property (nonatomic, strong) UIView *search;
 - (instancetype)initWithType:(NSString *)type;
 
 @end

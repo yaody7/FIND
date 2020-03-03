@@ -65,6 +65,7 @@
     regi.titleLabel.font = [UIFont systemFontOfSize: 20.0];
     [self.view addSubview:regi];
     self.title = @"Login";
+//    [self.view addSubview:self.logo];
 }
 //TODO set the APP's user
 - (void)doLogin{
@@ -113,5 +114,15 @@
 - (void)jumpRegister{
     RegisterViewController *rec = [[RegisterViewController alloc]init];
     [self.navigationController pushViewController:rec animated:YES];
+}
+- (UIImageView *)logo{
+    CGFloat xOffset = 0.2 * self.view.frame.size.width;
+    CGFloat yOffset = 0.8 * self.view.frame.size.height;
+    CGFloat width = self.view.frame.size.width - 2 * xOffset;
+    CGFloat height = 3 * width / 8;
+    _logo = [[UIImageView alloc]initWithFrame:(CGRect)CGRectMake(xOffset, yOffset, width, height)];
+    _logo.image = [UIImage imageNamed:@"logo.png"];
+    NSLog(@"%@",_logo.image);
+    return _logo;
 }
 @end

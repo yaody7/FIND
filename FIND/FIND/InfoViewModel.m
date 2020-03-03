@@ -11,7 +11,7 @@
 #import "AppDelegate.h"
 #import "DetailViewController.h"
 
-@interface InfoViewModel()<NSURLSessionDelegate>
+@interface InfoViewModel()<NSURLSessionDelegate,UISearchBarDelegate>
 {
     NSOperationQueue *imageQueue;
 }
@@ -25,13 +25,23 @@
     }
     return self;
 }
+/*
+- (void) loadMore{
+    [self.info insertObject:[self.info objectAtIndex:0] atIndex:0];
+ //   [self.info addObject:[self.info objectAtIndex:0]];
+    [self.table reloadData];
+}*/
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
+  /*  //load more
+    if (indexPath.row == [self.info count] - 1){
+        [self loadMore];
+    }*/
     static NSString *cellID = @"cellID";
     InfoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
     if (cell == nil){
         cell = [[InfoTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
     }
-    NSDictionary *dict = [self.info objectAtIndex:indexPath.row];
+    NSDictionary *dict = [self.info objectAtIndex:[self.info count] - 1 - indexPath.row];
     [cell setName:dict[@"Thing"] setContact:dict[@"contact"] setTime:dict[@"Time"]];
     if (dict[@"Portrait"] == nil || [dict[@"Portrait"] isEqualToString: @""])
         cell.image.image = [UIImage imageNamed:@"loading.png"];
@@ -84,4 +94,5 @@
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
     [self.table reloadData];
 }
+
 @end
