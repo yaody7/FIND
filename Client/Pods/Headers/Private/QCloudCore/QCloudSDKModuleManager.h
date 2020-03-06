@@ -1,0 +1,1 @@
+../../../QCloudCore/QCloudCore/Classes/Base/Supervisory/QCloudSDKModuleManager.h

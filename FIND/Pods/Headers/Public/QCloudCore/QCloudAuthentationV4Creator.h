@@ -1,1 +1,0 @@
-../../../QCloudCore/QCloudCore/Classes/Base/QCloudClientBase/Authentation/QCloudAuthentationV4Creator.h

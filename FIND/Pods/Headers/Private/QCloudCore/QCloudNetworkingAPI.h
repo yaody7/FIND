@@ -1,1 +1,0 @@
-../../../QCloudCore/QCloudCore/Classes/Base/QCLOUDRestNet/API/QCloudNetworkingAPI.h

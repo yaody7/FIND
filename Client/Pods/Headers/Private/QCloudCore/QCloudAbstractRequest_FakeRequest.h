@@ -1,0 +1,1 @@
+../../../QCloudCore/QCloudCore/Classes/Base/QCloudClientBase/Request/QCloudAbstractRequest_FakeRequest.h
